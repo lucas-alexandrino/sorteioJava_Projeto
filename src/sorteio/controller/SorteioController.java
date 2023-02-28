@@ -17,12 +17,12 @@ public class SorteioController implements SorteioRepository {
     //Método para remover por ID
     @Override
     public boolean remover(int id) {
-        Participante p1 = buscarPorId(id);
-        if (p1 != null){
-            this.listaParticipantes.remove(p1);
+        Participante participante = buscarPorId(id);
+        if (participante != null){
+            this.listaParticipantes.remove(participante);
             return true;
         }
-        System.out.printf("O id informado (%d) não pertence a nenhum participante!", id);
+        System.out.printf("\nO id informado (%d) não pertence a nenhum participante!\n", id);
         return false;
     }
 
@@ -30,11 +30,12 @@ public class SorteioController implements SorteioRepository {
     @Override
     public void mostrar() {
         if (this.listaParticipantes.isEmpty()){
-            System.out.println("A lista está vazia!");
+            System.out.println("\nA lista está vazia!");
         }
         else {
             for (Participante lista : this.listaParticipantes){
-                System.out.printf("NOME: %s - ID: %d\n",lista.getNome(), lista.getId());
+                System.out.printf("NOME: %s - ID: %d",lista.getNome(), lista.getId());
+                System.out.println();
             }
         }
     }
@@ -53,5 +54,15 @@ public class SorteioController implements SorteioRepository {
         }
         return null;
     }
-
+    public boolean verificarId(int id){
+        for (Participante lista : this.listaParticipantes){
+            if (lista.getId() == id){
+                return true;
+            }
+        }
+        return false;
+    }
+    public Integer tamanhoLista(){
+       return this.listaParticipantes.size() + 1;
+    }
 }

@@ -42,4 +42,7 @@ public class SorteioAbertura extends Sorteio{
 
     }
 
+    @Override
+    public void sortearFeedback(ArrayList<Participante> listaParticipantes) {}
+
 }

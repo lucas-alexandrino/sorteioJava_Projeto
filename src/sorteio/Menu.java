@@ -6,6 +6,7 @@ import sorteio.model.Sorteio;
 import sorteio.model.SorteioAbertura;
 import sorteio.model.SorteioPitch;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -23,19 +24,24 @@ public class Menu {
             while (true) {
                 System.out.println("                                                     ");
                 System.out.println("                SORTEIO: DUPLAS ABERTURA & PITCH     ");
-                System.out.println("                                                     ");
                 System.out.println("-----------------------------------------------------");
-                System.out.println("                                                     ");
                 System.out.println("            1 - Adicionar participantes!             ");
                 System.out.println("            2 - Mostrar participantes...             ");
                 System.out.println("            3 - Remover participantes...             ");
                 System.out.println("            4 - Realizar Sorteio                     ");
                 System.out.println("            5 - Sair                                 ");
-                System.out.println("                                                     ");
                 System.out.println("-----------------------------------------------------");
 
-                System.out.print("Entre com a opção desejada: ");
-                opcaoEscolhida = input.nextInt();
+                try {
+                    System.out.print("Entre com a opção desejada: ");
+                    opcaoEscolhida = input.nextInt();
+                }
+                catch (InputMismatchException inputMismatchException){
+                    System.out.println("\nDigite números inteiros!");
+                    input.nextLine();
+                    opcaoEscolhida = 0;
+                }
+
 
                 if (opcaoEscolhida == 5) {
                     System.out.println("\nObrigada por utilizar nosso programa de sorteio!");
@@ -51,20 +57,27 @@ public class Menu {
 
                         System.out.println("\nDigite o NOME e o ID do participante!");
                         for (int i = 0; i < numeroParticipantes; i++) {
-                            System.out.printf("\nNOME PARTICIPANTE %d-> ", i + 1);
+                            System.out.printf("\nNOME PARTICIPANTE %d-> ", sorteioController.tamanhoLista());
                             String nome = input.nextLine();
 
                             System.out.print("ID ->");
                             int id = input.nextInt();
+                            while (sorteioController.verificarId(id)){
+                                System.out.println("\nJá há um participante com esse ID! Por favor, digite novamente!");
+                                System.out.print("\nID ->");
+                                id = input.nextInt();
+                            }
                             input.nextLine();
                             sorteioController.adicionar(new Participante(nome, id));
                             System.out.println();
                         }
+                        keyPress();
                         break;
 
                     case 2:
                         System.out.println("\nLista de partcipantes: ");
                         sorteioController.mostrar();
+                        keyPress();
                         break;
 
                     case 3:
@@ -75,6 +88,7 @@ public class Menu {
                         if (participanteRemovido) {
                             System.out.println("\nO participante foi removido com sucesso!");
                         }
+                        keyPress();
                         break;
                     case 4:
                         System.out.println("\nVamos realizar o sorteio!");
@@ -102,6 +116,7 @@ public class Menu {
                             abertura.sortearTema();
                         }
                         else {
+
                             System.out.println("\nA dupla sorteada para o PITCH é: ");
                             for (int i = 0; i < 2; i++) {
                                 Participante participante = pitch.sortearDuplas(sorteioController.getListaParticipantes());
@@ -109,15 +124,14 @@ public class Menu {
                                 sorteioController.remover(participante.getId());
                             }
                             System.out.println("\nA dupla sorteada para o FEEDBACK é: ");
-                            for (int i = 0; i < 2; i++) {
-                                Participante participante = pitch.sortearDuplas(sorteioController.getListaParticipantes());
-                                System.out.println(participante.getNome());
-                                sorteioController.remover(participante.getId());
-                            }
+                                pitch.sortearFeedback(sorteioController.getListaParticipantes());
+
                         }
+                        keyPress();
                         break;
                     default:
                         System.out.println("\nOpção inválida!");
+                        keyPress();
                         break;
                 }
             }
@@ -127,6 +141,15 @@ public class Menu {
          //Tratamento de exceção
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             System.out.println("\nSorteio incompleto! A lista está vazia ou não contém participantes o suficiente!");
+        }
+    }
+    public static void keyPress() {
+        try {
+            System.out.println("\nPressione ENTER para continuar...");
+            System.in.read();
+        }
+        catch (IOException e) {
+            System.out.println("\nVocê pressionou uma tecla diferente de enter!");
         }
     }
 }
