@@ -14,10 +14,10 @@ A arquitetura MVC é utilizada neste projeto para separar a aplicação em três
 <strong>Visão:</strong> responsável pela interação com o usuário, exibindo a interface gráfica da aplicação.
 <strong>Controlador:</strong> responsável por intermediar as requisições entre a visão e o modelo, além de controlar o fluxo de dados na aplicação.
 
-<br><strong><h2>Funcionamento</h2><strong><br>
+<br><strong><h2>Funcionamento</h2></strong><br>
 Ao executar a aplicação, o usuário insere os nomes dos alunos participantes e clica em um botão para sortear as duplas de abertura. Em seguida, o usuário clica em outro botão para sortear as duplas de feedback. As duplas são exibidas na tela e também são registradas em um ArrayList.
 
-<strong><h2>Como executar o projeto</h2><strong>
+<strong><h2>Como executar o projeto</h2></strong>
 Para executar o projeto, basta clonar este repositório em seu computador e importá-lo em sua IDE Java de preferência. Em seguida, execute a classe Main.java e siga as instruções exibidas na tela.
 
 ```
