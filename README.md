@@ -22,7 +22,7 @@ Para executar o projeto, basta clonar este repositório em seu computador e impo
 
 ```
 
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
+git clone https://github.com/lucas-alexandrino/sorteioJava_Projeto.git
 
 ```
 <strong><h2>Contribuições</h2></strong> 
